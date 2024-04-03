@@ -1,27 +1,19 @@
 import fastify from "fastify";
-import { z } from "zod";
-import { db } from "./lib/db";
+
+import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
+import { createEventRoute } from "./routes/create-event";
+import { getAttendeeBadge } from "./routes/get-attendee-badge";
+import { getEvent } from "./routes/get-event";
+import { registerForEvent } from "./routes/register-for-event";
 
 const app = fastify();
 
-app.post('/events', async (req, reply) => {
-    const createEventSchema = z.object({
-        title: z.string().min(4),
-        details: z.string().nullable(),
-        maximumAttendees: z.number().int().positive().nullable()
-    })
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
-    const { title, details, maximumAttendees } = createEventSchema.parse(req.body);
-
-    const event = await db.event.create({
-        data: {
-            title,
-            slug: new Date().toISOString(),
-            details,
-            maximumAttendees,
-        }
-    })
-    return reply.status(201).send({ eventId: event.id });
-})
+app.register(createEventRoute);
+app.register(registerForEvent);
+app.register(getEvent);
+app.register(getAttendeeBadge);
 
 app.listen({ port: 3333 }).then(() => console.log("🚀 HTTP Server running"));

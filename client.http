@@ -6,3 +6,19 @@ Content-Type: application/json
     "details": "Evento da Rocketseat",
     "maximumAttendees": 100
 }
+###
+POST http://localhost:3333/events/b8cdf168-97bc-4702-961d-d4d630be0a7b/attendees
+Content-Type: application/json
+
+{
+    "name": "Gabriel",
+    "email": "nykoofy@proton.me"
+}
+
+###
+
+GET http://localhost:3333/events/b8cdf168-97bc-4702-961d-d4d630be0a7b
+
+###
+
+GET http://localhost:3333/attendees/1/badge
