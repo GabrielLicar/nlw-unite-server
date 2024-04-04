@@ -2,7 +2,7 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "Unite NLW",
+    "title": 15,
     "details": "Evento da Rocketseat",
     "maximumAttendees": 100
 }
@@ -22,3 +22,12 @@ GET http://localhost:3333/events/b8cdf168-97bc-4702-961d-d4d630be0a7b
 ###
 
 GET http://localhost:3333/attendees/1/badge
+
+
+###
+
+GET http://localhost:3333/attendees/1/check-in
+
+###
+
+GET http://localhost:3333/events/b8cdf168-97bc-4702-961d-d4d630be0a7b/attendees
